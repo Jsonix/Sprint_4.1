@@ -119,4 +119,12 @@ public class AccountTest {
 
         assertFalse(result);
     }
+
+    @Test
+    public void checkThatNameWithNullReturnFalse() {
+        Account account = new Account(null);
+        boolean result = account.checkNameToEmboss();
+
+        assertFalse(result);
+    }
 }

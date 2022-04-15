@@ -1,3 +1,6 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Account {
 
     private final String name;
@@ -7,17 +10,20 @@ public class Account {
     }
 
     public boolean checkNameToEmboss() {
-        int nameLength = name.length();
-        int spaceCount = nameLength - name.replaceAll(" ", "").length();
 
-        if (nameLength > 19 || nameLength < 3){
+        if(name == null){
             return false;
-        } else if (name.startsWith(" ") || name.endsWith(" ")){
-            return false;
-        } else if (spaceCount != 1){
-            return false;
-        } else {
-            return true;
         }
+
+        Pattern symbolsPattern = Pattern.compile("^[\\S]+ [\\S]+$");
+        Matcher symbolsMatcher = symbolsPattern.matcher(name);
+
+        Pattern lengthPattern = Pattern.compile("^(.){3,19}$");
+        Matcher lengthMatcher = lengthPattern.matcher(name);
+
+        if (symbolsMatcher.find()){
+            return lengthMatcher.find();
+        }
+        return false;
     }
 }
